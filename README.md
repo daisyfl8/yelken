@@ -17,8 +17,13 @@
         .q-text { font-size: 17px; font-weight: bold; text-align: center; margin-bottom: 20px; color: #1a365d; }
         .footer-btn { background: #fff; color: #d9534f; border-color: #d9534f; margin-top: 20px; }
     
-        .btn:focus, .btn:active { outline: none; background: white; color: #002b5c; }   
-        * { -webkit-tap-highlight-color: transparent; }
+       .btn:focus, .btn:active, .btn:visited { 
+            outline: none !important; 
+            background-color: white !important; 
+            color: #002b5c !important; 
+            box-shadow: none !important;
+        }
+        * { -webkit-tap-highlight-color: rgba(0,0,0,0) !important; }
     </style>
 </head>
 <body>
