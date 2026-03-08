@@ -9,7 +9,7 @@
         .app { width: 100%; max-width: 450px; background: white; min-height: 100vh; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 15px; overflow: hidden; }
         header { background: #002b5c; color: white; padding: 25px; text-align: center; border-bottom: 5px solid #f1c40f; }
         .content { padding: 20px; }
-        .btn { display: block; width: 100%; padding: 16px; margin-bottom: 12px; border: 2px solid #002b5c; background: white; color: #002b5c; font-weight: bold; border-radius: 10px; cursor: pointer; font-size: 15px; transition: 0.2s; box-sizing: border-box; }
+        .btn { display: block; width: 100%; padding: 16px; margin-bottom: 12px; border: 2px solid #002b5c; background: white; color: #002b5c; font-weight: bold; border-radius: 10px; cursor: pointer; font-size: 15px; transition: 0.2s; box-sizing: border-box; outline: none; }
         .btn:hover { background: #002b5c; color: white; }
         .page { display: none; }
         .active { display: block; }
@@ -17,11 +17,17 @@
         .q-text { font-size: 17px; font-weight: bold; text-align: center; margin-bottom: 20px; color: #1a365d; }
         .footer-btn { background: #fff; color: #d9534f; border-color: #d9534f; margin-top: 20px; }
     
-       .btn:focus, .btn:active, .btn:visited { 
+        /* Mavi kalma sorununu çözen kritik kısım */
+        .btn:focus, .btn:active { 
             outline: none !important; 
             background-color: white !important; 
             color: #002b5c !important; 
             box-shadow: none !important;
+        }
+        /* Hover durumunda lacivert olmaya devam etmesi için */
+        .btn:hover {
+            background-color: white !important;
+            color: #002b5c !important;
         }
         * { -webkit-tap-highlight-color: rgba(0,0,0,0) !important; }
     </style>
@@ -80,7 +86,7 @@
             <div class="info-card"><strong>Sancak:</strong> Teknenin sağ tarafıdır. Denizcilikte yön tariflerinde kullanılan temel terimlerden biridir.</div>
             <div class="info-card"><strong>Tramola:</strong> Orsa seyrinde teknenin başını kör noktadan geçirerek yapılan yön değiştirme manevrasıdır.</div>
             <div class="info-card"><strong>Treyler:</strong> Tekneleri karada taşımak için kullanılan tekerlekli platformdur.</div>
-            <div class="info-card"><strong>Yeke:</strong> Dümeni kontrol etmeyi sağlayan yatay çubuktur. Yelkenci bu parçayı sağa veya sola hareket ettirerek teknenin yönünü değiştirir.</div>
+            <div class="info-card"><strong>Yeke:</strong> Dümeni kontrol etmeyi sağlayan yatay çubuktur. Yelkencer bu parçayı sağa veya sola hareket ettirerek teknenin yönünü değiştirir.</div>
             <div class="info-card"><strong>a:</strong> a</div>
             <button class="btn footer-btn" onclick="openPage('home')">🏠 ANA MENÜYE DÖN</button>
         </div>
@@ -113,39 +119,43 @@
     }
 
     function renderQuiz(idx) {
-    const item = questions[idx];
-    const qText = document.getElementById('q-text');
-    const box = document.getElementById('q-options');
+        const item = questions[idx];
+        const qText = document.getElementById('q-text');
+        const box = document.getElementById('q-options');
 
-    // Soruyu ve seçenek kutusunu temizle/güncelle
-    qText.innerText = item.q;
-    box.innerHTML = '';
+        qText.innerText = item.q;
+        box.innerHTML = '';
 
-    item.a.forEach(opt => {
-        const b = document.createElement('button');
-        b.className = 'btn';
-        b.innerText = opt;
-        
-        b.onclick = (e) => {
-            // Butona tıklandığı an mavi çerçeveyi (odaklanmayı) kaldırır
-            e.target.blur(); 
+        // Sayfa geçişinde odağı tamamen sıfırla
+        if (document.activeElement) {
+            document.activeElement.blur();
+        }
 
-            if(opt === item.c) {
-                alert("Doğru! ⛵");
-            } else {
-                alert("Yanlış. Cevap: " + item.c);
-            }
+        item.a.forEach(opt => {
+            const b = document.createElement('button');
+            b.className = 'btn';
+            b.innerText = opt;
             
-            if(idx + 1 < questions.length) {
-                renderQuiz(idx + 1);
-            } else {
-                alert("Test tamamlandı!");
-                openPage('home');
-            }
-        };
-        box.appendChild(b);
-    });
-}
+            b.onclick = (e) => {
+                // Tıklanan butondan odağı anında çek
+                e.target.blur(); 
+
+                if(opt === item.c) {
+                    alert("Doğru! ⛵");
+                } else {
+                    alert("Yanlış. Cevap: " + item.c);
+                }
+                
+                if(idx + 1 < questions.length) {
+                    renderQuiz(idx + 1);
+                } else {
+                    alert("Test tamamlandı!");
+                    openPage('home');
+                }
+            };
+            box.appendChild(b);
+        });
+    }
 </script>
 
 </body>
