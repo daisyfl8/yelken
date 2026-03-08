@@ -24,12 +24,6 @@
             color: white !important; 
             box-shadow: none !important;
         }
-        /* Hover durumunda lacivert olmaya devam etmesi için */
-        .btn:hover {
-            background-color: #002b5c !important;
-            color: white !important;
-        }
-        * { -webkit-tap-highlight-color: rgba(0,0,0,0) !important; }
     </style>
 </head>
 <body>
