@@ -16,6 +16,9 @@
         .info-card { background: #f8fafc; padding: 15px; border-left: 5px solid #f1c40f; margin-bottom: 12px; border-radius: 6px; font-size: 14px; line-height: 1.6; }
         .q-text { font-size: 17px; font-weight: bold; text-align: center; margin-bottom: 20px; color: #1a365d; }
         .footer-btn { background: #fff; color: #d9534f; border-color: #d9534f; margin-top: 20px; }
+    
+        .btn:focus, .btn:active { outline: none; background: white; color: #002b5c; }   
+        * { -webkit-tap-highlight-color: transparent; }
     </style>
 </head>
 <body>
