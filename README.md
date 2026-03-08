@@ -105,25 +105,39 @@
     }
 
     function renderQuiz(idx) {
-        const item = questions[idx];
-        document.getElementById('q-text').innerText = item.q;
-        const box = document.getElementById('q-options');
-        box.innerHTML = '';
+    const item = questions[idx];
+    const qText = document.getElementById('q-text');
+    const box = document.getElementById('q-options');
+
+    // Soruyu ve seçenek kutusunu temizle/güncelle
+    qText.innerText = item.q;
+    box.innerHTML = '';
+
+    item.a.forEach(opt => {
+        const b = document.createElement('button');
+        b.className = 'btn';
+        b.innerText = opt;
         
-        item.a.forEach(opt => {
-            const b = document.createElement('button');
-            b.className = 'btn';
-            b.innerText = opt;
-            b.onclick = () => {
-                if(opt === item.c) alert("Doğru! ⛵");
-                else alert("Yanlış. Cevap: " + item.c);
-                
-                if(idx + 1 < questions.length) renderQuiz(idx + 1);
-                else { alert("Test tamamlandı!"); openPage('home'); }
-            };
-            box.appendChild(b);
-        });
-    }
+        b.onclick = (e) => {
+            // Butona tıklandığı an mavi çerçeveyi (odaklanmayı) kaldırır
+            e.target.blur(); 
+
+            if(opt === item.c) {
+                alert("Doğru! ⛵");
+            } else {
+                alert("Yanlış. Cevap: " + item.c);
+            }
+            
+            if(idx + 1 < questions.length) {
+                renderQuiz(idx + 1);
+            } else {
+                alert("Test tamamlandı!");
+                openPage('home');
+            }
+        };
+        box.appendChild(b);
+    });
+}
 </script>
 
 </body>
