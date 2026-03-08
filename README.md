@@ -20,14 +20,14 @@
         /* Mavi kalma sorununu çözen kritik kısım */
         .btn:focus, .btn:active { 
             outline: none !important; 
-            background-color: white !important; 
-            color: #002b5c !important; 
+            background-color: #002b5c !important; 
+            color: white !important; 
             box-shadow: none !important;
         }
         /* Hover durumunda lacivert olmaya devam etmesi için */
         .btn:hover {
-            background-color: white !important;
-            color: #002b5c !important;
+            background-color: #002b5c !important;
+            color: white !important;
         }
         * { -webkit-tap-highlight-color: rgba(0,0,0,0) !important; }
     </style>
